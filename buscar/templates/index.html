@@ -1,0 +1,57 @@
+{% comment %} <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta DNI</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Resultados de la Consulta de DNI</h1>
+    
+    <!-- Tabla para mostrar los resultados -->
+    <table id="dniTable" border="1">
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombre Completo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se actualizarán las filas con los resultados -->
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function(){
+            // Llamar a la vista para obtener los datos de los DNIs
+            $.get('/', function(data){
+                // Limpiar la tabla antes de agregar nuevos datos
+                $('#dniTable tbody').empty();
+
+                // Agregar la primera fila con el DNI y el nombre completo
+                if (data.dni && data.nombre_completo) {
+                    var row = '<tr><td>' + data.dni + '</td><td>' + data.nombre_completo + '</td></tr>';
+                    $('#dniTable tbody').append(row);
+                }
+            });
+        });
+    </script>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de Búsqueda</title>
+</head>
+<body>
+    <h1>Resultados de la Búsqueda para DNI: {{ dni_id }}</h1>
+    <ul>
+        {% for resultado in resultados_dni %}
+            <li>DNI: {{ resultado.dni }} - Nombre: {{ resultado.nombre_completo }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
